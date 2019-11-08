@@ -22,3 +22,6 @@ dist/
 # PyTest
 .pytest_cache/
 __pycache__/
+
+coverage.xml
+result.txt

@@ -13,6 +13,7 @@ coverage_rate=$(cat cov.txt | tail -n 1 | grep -Eo '[^ ]+$' | tr -d %)
 if [ $coverage_rate -lt 90 ]
 then
   echo "Python code coverage checking failed!"
-  coverage html
+  coverage xml
   exit 2
 fi
+coverage xml
