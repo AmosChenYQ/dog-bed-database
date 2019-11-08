@@ -1,0 +1,24 @@
+# Visual Studio Code
+.vscode/
+
+# Pycharm
+.idea/
+
+# mac_os
+.DS_Store
+
+# Virtual environment
+venv/
+
+# Python
+build/
+dist/
+*.pyc
+*.egg-info
+
+# Database files
+*.db
+
+# PyTest
+.pytest_cache/
+__pycache__/
