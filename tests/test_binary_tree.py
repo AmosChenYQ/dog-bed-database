@@ -2,6 +2,7 @@ import sys
 sys.path.insert(0, 'src')
 import os
 import tempfile
+import portalocker
 from nose.tools import eq_, assert_raises
 from dbdb.binary_tree import BinaryNode, BinaryNodeRef, BinaryTree
 from dbdb.physical import Storage
@@ -35,12 +36,10 @@ class MockStorage(object):
 
 class TestBinaryTree(object):
     def setup(self):
-        self.fd = os.open("dbname.txt", os.O_RDWR | os.O_CREAT)
-        self.f = open("dbname.txt", 'r+b')
-        # self.f = tempfile.NamedTemporaryFile(delete=False)
+        self.f = tempfile.NamedTemporaryFile(delete=False)
         self.storage = Storage(self.f)
         self.tree = BinaryTree(self.storage)
-
+        
     def teardown(self):
         pass
 

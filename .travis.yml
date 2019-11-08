@@ -9,3 +9,6 @@ install:
 
 script:
   - pytest --cov=src -s --cov-config=.coveragerc
+
+after_script:
+  - coverage report
