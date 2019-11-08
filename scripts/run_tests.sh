@@ -10,7 +10,7 @@ fi
 echo ----Check coverage rate, target: 100%----
 coverage report -m  > cov.txt
 coverage_rate=$(cat cov.txt | tail -n 1 | grep -Eo '[^ ]+$' | tr -d %)
-if [ $coverage_rate -gt 90 ]
+if [ $coverage_rate -lt 90 ]
 then
   echo "Python code coverage checking failed!"
   coverage html
