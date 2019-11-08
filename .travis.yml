@@ -12,6 +12,5 @@ script:
   - ./scripts/run_tests.sh
 
 after_script:
-  - coverage report > cov.txt
-  - codecov
-  
+  - coverage xml
+  - bash <(curl -s https://codecov.io/bash)
