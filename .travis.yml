@@ -8,7 +8,8 @@ install:
   - pip install ./src
 
 script:
-  - pytest --cov=src -s --cov-config=.coveragerc
+  - chmod +x ./scripts/run_tests.sh
+  - ./scripts/run_tests.sh
 
 after_script:
-  - coverage report
+  - coverage report > cov.txt
