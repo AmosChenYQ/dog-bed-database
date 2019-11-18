@@ -2,7 +2,8 @@
 [run]
 branch = True
 source = src
-omit = src/setup.py 
+omit = src/setup.py
+       src/dbdb/__init__.py
 
 [report]
 # Regexes for lines to exclude from consideration
