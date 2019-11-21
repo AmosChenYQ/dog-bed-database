@@ -48,8 +48,120 @@ class TestBinaryTree(object):
             self.tree.get('Not A Key In The Tree')
     
     def test_set_and_get_key(self):
-        self.tree.set('a', 'b')
-        self.tree.set('c', 'd')
+        self.tree.set('b', '1')
+        self.tree.set('a', '2')
+        self.tree.set('c', '3')
+        self.tree.commit()
         
-        eq_(self.tree.get('a'), 'b')
-        eq_(self.tree.get('c'), 'd')
+        eq_(self.tree.get('a'), '2')
+        eq_(self.tree.get('b'), '1')
+        eq_(self.tree.get('c'), '3')
+
+    def test_set_and_reset_key(self):
+        self.tree.set('a', '1')
+        eq_(self.tree.get('a'), '1')
+
+        self.tree.set('a', '2')
+        eq_(self.tree.get('a'), '2')
+
+    def test_delete_a_non_key(self):
+        with assert_raises(KeyError):
+            self.tree.pop('a')
+
+    def test_set_and_delete_key(self):
+        self.tree.set('a', '1')
+        self.tree.set('b', '2')
+        self.tree.set('c', '3')
+        self.tree.commit()
+
+        eq_(self.tree.get('a'), '1')
+        eq_(self.tree.get('b'), '2')
+        eq_(self.tree.get('c'), '3')
+
+        self.tree.pop('a')
+        eq_(self.tree.get('b'), '2')
+        eq_(self.tree.get('c'), '3')
+        with assert_raises(KeyError):
+            self.tree.get('a')
+
+    def test_set_and_delete_left_node(self):
+        self.tree.set('b', '2')
+        self.tree.set('a', '1')
+        self.tree.set('c', '3')
+        self.tree.commit()
+
+        eq_(self.tree.get('a'), '1')
+        eq_(self.tree.get('b'), '2')
+        eq_(self.tree.get('c'), '3')
+
+        self.tree.pop('a')
+        eq_(self.tree.get('b'), '2')
+        eq_(self.tree.get('c'), '3')
+        with assert_raises(KeyError):
+            self.tree.get('a')
+
+    def test_set_and_delete_right_node(self):
+        self.tree.set('b', '2')
+        self.tree.set('a', '1')
+        self.tree.set('c', '3')
+        self.tree.commit()
+
+        eq_(self.tree.get('a'), '1')
+        eq_(self.tree.get('b'), '2')
+        eq_(self.tree.get('c'), '3')
+
+        self.tree.pop('c')
+        eq_(self.tree.get('a'), '1')
+        eq_(self.tree.get('b'), '2')
+        with assert_raises(KeyError):
+            self.tree.get('c')
+
+    def test_set_and_delete_root_node(self):
+        self.tree.set('b', '2')
+        self.tree.set('a', '1')
+        self.tree.set('c', '3')
+        self.tree.commit()
+
+        eq_(self.tree.get('a'), '1')
+        eq_(self.tree.get('b'), '2')
+        eq_(self.tree.get('c'), '3')
+
+        self.tree.pop('b')
+        eq_(self.tree.get('a'), '1')
+        eq_(self.tree.get('c'), '3')
+        with assert_raises(KeyError):
+            self.tree.get('b')
+    
+    def test_set_and_delete_root_node_without_its_left_node(self):
+        self.tree.set('b', '2')
+        self.tree.set('c', '3')
+        self.tree.commit()
+
+        eq_(self.tree.get('b'), '2')
+        eq_(self.tree.get('c'), '3')
+
+        self.tree.pop('b')
+        eq_(self.tree.get('c'), '3')
+        with assert_raises(KeyError):
+            self.tree.get('b')
+
+    def test_set_and_delete_root_node_without_its_right_node(self):
+        self.tree.set('b', '2')
+        self.tree.set('a', '1')
+        self.tree.commit()
+
+        eq_(self.tree.get('b'), '2')
+        eq_(self.tree.get('a'), '1')
+
+        self.tree.pop('b')
+        eq_(self.tree.get('a'), '1')
+        with assert_raises(KeyError):
+            self.tree.get('b')
+
+
+    # def test_uni(self):
+    #     if self.tree._storage.lock():
+    #         self.tree._refresh_tree_ref()
+        
+    #     self.tree._tree_ref = self.tree._insert(
+    #         self.tree._follow(self.tree._tree_ref), 'a', self.tree.value_ref_class('1'))
