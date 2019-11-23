@@ -158,6 +158,20 @@ class TestBinaryTree(object):
         with assert_raises(KeyError):
             self.tree.get('b')
 
+    def test_set_and_delete_root_node_with_its_left_part_needs_to_findmax(self):
+        self.tree.set('e', '5')
+        self.tree.set('a', '1')
+        self.tree.set('b', '2')
+        self.tree.set('c', '3')
+        self.tree.set('f', '6')
+        self.tree.commit()
+
+        self.tree.pop('e')
+
+        with assert_raises(KeyError):
+            self.tree.get('e')
+
+
 
     # def test_uni(self):
     #     if self.tree._storage.lock():

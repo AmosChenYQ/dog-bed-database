@@ -60,10 +60,10 @@ class LogicalBase(object):
 
     def __init__(self, storage):
         self._storage = storage
-        print("init")
+        # print("init")
         self._refresh_tree_ref()
-        print(self._tree_ref._referent)
-        print(self._tree_ref._address)
+        # print(self._tree_ref._referent)
+        # print(self._tree_ref._address)
 
     def commit(self):
         self._tree_ref.store(self._storage)
@@ -77,11 +77,11 @@ class LogicalBase(object):
     # Get the key value
     def get(self, key):
         if not self._storage.locked:
-            print("get f")
+            # print("get f")
             self._refresh_tree_ref() # If not locked, update the tree with storage data
-            print(self._tree_ref._referent)
-            print(self._tree_ref._address)
-            print(self._follow(self._tree_ref))
+            # print(self._tree_ref._referent)
+            # print(self._tree_ref._address)
+            # print(self._follow(self._tree_ref))
         return self._get(self._follow(self._tree_ref), key) # Do not care about "dirty read"
 
     # Set a value to a key
